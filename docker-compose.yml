@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  app:
+    image: ramosson:go
+    build: .
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: sugori_rendez_vous
+      DB_USER: hidakkathon
+      DB_PASS: hidakkathon
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: TPdatabase
+      MYSQL_USER: TPuser
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: "root-password"
+    ports:
+      - "3314:3306"
+    volumes:
+      - ../mysql:/docker-entrypoint-initdb.d
